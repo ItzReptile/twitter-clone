@@ -31,7 +31,7 @@ export default function TweetInput() {
               <LocationMarkerIcon className="h-[22px] text-[#1d9bf0]" />
             </div>
           </div>
-          <button>Tweet</button>
+          <button className="bg-[#1d9bf0] rounded-full px-4 py-1.5">Tweet</button>
         </div>
       </div>
     </div>
