@@ -2,7 +2,7 @@ import { DotsHorizontalIcon, SearchIcon } from "@heroicons/react/outline";
 import { BadgeCheckIcon } from "@heroicons/react/solid";
 export default function Trending() {
   return (
-    <div className="hidden lg:flex">
+    <div className="lg:flex flex-col">
       trending
       <div
         className="flex space-x-3 bg-white bg-opacity-10
@@ -52,7 +52,7 @@ export default function Trending() {
       <div className="w-[300px] h-[300px] bg-white bg-opacity-10 rounded-3xl mt-3">
         <h1 className="font-bold text-xl p-3">Who To Follow </h1>
         <div className="flex justify-between p-3">
-          <div flex space-x-3>
+          <div className=" flex space-x-3">
             <img
               className="w-11 h-11 object-cover rounded-full"
               src="/assets/bragg.png"
@@ -62,16 +62,15 @@ export default function Trending() {
                 <h1 className="font-bold">David Bragg</h1>
                 <BadgeCheckIcon className="w-[18px] text-blue-400" />
               </div>
+              <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
             </div>
-
-            <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
           </div>
           <button className="bg-white text-black text-sm w-20 rounded-3xl font-bold h-8">
             Follow
           </button>
         </div>
         <div className="flex justify-between p-3">
-          <div flex space-x-3>
+          <div className=" flex space-x-3">
             <img
               className="w-11 h-11 object-cover rounded-full"
               src="/assets/bragg.png"
@@ -81,16 +80,15 @@ export default function Trending() {
                 <h1 className="font-bold">David Bragg</h1>
                 <BadgeCheckIcon className="w-[18px] text-blue-400" />
               </div>
+              <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
             </div>
-
-            <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
           </div>
           <button className="bg-white text-black text-sm w-20 rounded-3xl font-bold h-8">
             Follow
           </button>
         </div>
         <div className="flex justify-between p-3">
-          <div flex space-x-3>
+          <div className=" flex space-x-3">
             <img
               className="w-11 h-11 object-cover rounded-full"
               src="/assets/bragg.png"
@@ -100,9 +98,8 @@ export default function Trending() {
                 <h1 className="font-bold">David Bragg</h1>
                 <BadgeCheckIcon className="w-[18px] text-blue-400" />
               </div>
+              <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
             </div>
-
-            <h1 className="text-[12px] text-gray-500 mt-1">@DavidBragg</h1>
           </div>
           <button className="bg-white text-black text-sm w-20 rounded-3xl font-bold h-8">
             Follow
