@@ -4,7 +4,7 @@ import Tweetinput from "./Tweetinput";
 export default function PostsFeed() {
   return (
     <div
-      className="sm:ml-20 xl:ml-96 max-w-2xl flex-grow
+      className="sm:ml-16 xl:ml-80 max-w-2xl flex-grow
         border-gray-700 border-x"
     >
       <div
