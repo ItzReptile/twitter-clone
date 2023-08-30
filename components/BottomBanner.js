@@ -1,3 +1,4 @@
+import LoginModal from "./modals/LoginModal";
 import SignUpModal from "./modals/SignUpModal";
 
 export default function BottomBanner() {
@@ -10,10 +11,8 @@ export default function BottomBanner() {
         </span>
       </div>
       <div className="space-x-3">
-        <button className="hover:bg-[#cbd2d7] bg-transparent border border-white text-white w-[160px] rounded-full h-[40px]">
-          Login In
-        </button>
-<SignUpModal/>
+        <LoginModal />
+        <SignUpModal />
       </div>
     </div>
   );
