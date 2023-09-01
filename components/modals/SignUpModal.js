@@ -1,11 +1,45 @@
 import { closeSignupModal, openSignupModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "@/firebase";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import userSlice, { setUser, signOutUser } from "@/redux/userSlice";
 
 export default function SignUpModal() {
   const isOpen = useSelector((state) => state.modal.signupModalOpen);
   const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleSignUp() {
+    const userCred = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) return;
+      dispatch(
+        setUser({
+          username: null,
+          name: null,
+          email: null,
+          photoUrl: null,
+        })
+      );
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <>
       <button
@@ -35,19 +69,24 @@ export default function SignUpModal() {
             <input
               placeholder="Full Name"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
-              type={"Name"}
+              type={"text"}
             />
             <input
               placeholder="Email"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
-              type={"Email"}
+              type={"email"}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               placeholder="Password"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
-              type={"Email"}
+              type={"password"}
+              onChange={(e) => setPassword(e.target.value)}
             />
-               <button className="bg-white text-black w-full font-bold text-lg p-2 mt-8 rounded-md">
+            <button
+              onClick={handleSignUp}
+              className="bg-white text-black w-full font-bold text-lg p-2 mt-8 rounded-md"
+            >
               Create Account
             </button>
           </div>

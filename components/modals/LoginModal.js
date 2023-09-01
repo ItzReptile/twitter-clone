@@ -26,13 +26,9 @@ export default function LoginModal() {
         >
           <div className="w-[90%] mt-8 flex flex-col">
             <h1 className=" mt-4 font-bold text-4xl text-center">
-              Sign In to your account
+              Sign in to your account
             </h1>
-            <input
-              placeholder="Full Name"
-              className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
-              type={"Name"}
-            />
+
             <input
               placeholder="Email"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
@@ -45,7 +41,7 @@ export default function LoginModal() {
             />
 
             <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md mt-8">
-              Sign In to your account
+              Sign In 
             </button>
             <h1 className="text-center mt-4 font-bold text-lg">or</h1>
             <button className="bg-white text-black w-full font-bold text-lg p-2 mt-4 rounded-md">
