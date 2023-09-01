@@ -1,3 +1,5 @@
+import { auth } from "@/firebase";
+import { signOutUser } from "@/redux/userSlice";
 import {
   HomeIcon,
   HashtagIcon,
@@ -7,10 +9,21 @@ import {
   BellIcon,
   UserIcon,
   DotsCircleHorizontalIcon,
+  DotsHorizontalIcon,
 } from "@heroicons/react/outline";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 
 export default function Sidebar() {
+  const dispatch = useDispatch()
+
+  async function handleSignOut(){
+
+    await signOut(auth)
+    dispatch(signOutUser())
+
+  }
   return (
     <div className="h-full hidden sm:flex flex-col fixed xl:ml-24">
       <nav className="h-full relative xl:space-y-1.5">
@@ -27,7 +40,22 @@ export default function Sidebar() {
         <button className=" hidden xl:inline bg-[#1d9bf0] rounded-full mt-2 h-[52px] w-[200px] text-lg font-bold">
           Tweet
         </button>
-        <div className="absolute bottom-0">User</div>
+        <div
+        onClick={handleSignOut}
+          className="
+        hover:bg-white hover:bg-opacity-10 rounded-full cursor-pointer
+        absolute bottom-0 flex justify-center items-center xl:p-3 space-x-3"
+        >
+          <img
+            className="w-10 h-10 rounded-full object-cover"
+            src="/assets/pfp.png"
+          />
+          <div className="hidden xl:inline">
+            <h1 className="font-bold whitespace-nowrap">Name</h1>
+            <h1 className="text-gray-500">@username</h1>
+          </div>
+          <DotsHorizontalIcon className="h-5 hidden xl:inline" />
+        </div>
       </nav>
     </div>
   );

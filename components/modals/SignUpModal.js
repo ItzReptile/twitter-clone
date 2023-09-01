@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "@/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userSlice, { setUser, signOutUser } from "@/redux/userSlice";
 
@@ -29,9 +29,10 @@ export default function SignUpModal() {
       if (!currentUser) return;
       dispatch(
         setUser({
-          username: null,
+          username: currentUser.email.split("@")[0],
           name: null,
-          email: null,
+          email: currentUser.email,
+          uid:currentUser.uid,
           photoUrl: null,
         })
       );
