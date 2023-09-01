@@ -1,8 +1,10 @@
 import { closeSignupModal, openSignupModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
+import reptile from "../../Public/assets/profilePictures/pfp2.png";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useEffect, useState } from "react";
@@ -14,6 +16,7 @@ export default function SignUpModal() {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSignUp() {
@@ -22,6 +25,12 @@ export default function SignUpModal() {
       email,
       password
     );
+    await updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: `./assets/profilePictures/pfp${Math.ceil(
+        Math.random() * 6
+      )}.png`,
+    });
   }
 
   useEffect(() => {
@@ -30,10 +39,10 @@ export default function SignUpModal() {
       dispatch(
         setUser({
           username: currentUser.email.split("@")[0],
-          name: null,
+          name: currentUser.displayName,
           email: currentUser.email,
-          uid:currentUser.uid,
-          photoUrl: null,
+          uid: currentUser.uid,
+          photoUrl: currentUser.photoUrl,
         })
       );
     });
@@ -71,6 +80,7 @@ export default function SignUpModal() {
               placeholder="Full Name"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
               type={"text"}
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               placeholder="Email"
