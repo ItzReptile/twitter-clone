@@ -4,6 +4,7 @@ import PostsFeed from "@/components/PostsFeed";
 import Trending from "@/components/Trending";
 import BottomBanner from "@/components/BottomBanner";
 import { useSelector } from "react-redux";
+import CommendModal from "@/components/modals/CommentModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function Home() {
         <PostsFeed />
         <Trending />
       </div>
+      <CommendModal/>
       {!username && <BottomBanner />}
     </div>
   );
