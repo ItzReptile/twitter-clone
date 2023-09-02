@@ -16,10 +16,10 @@ export default function TweetInput() {
   const [text, setText] = useState("");
   async function handleTweet() {
     const docRef = await addDoc(collection(db, "posts"), {
-      username: user?.username,
-      name: user?.name,
-      photoUrl: user?.photoUrl,
-      uid: user?.uid,
+      username: user.username,
+      name: user.name,
+      photoURL: user.photoURL,
+      uid: user.uid,
       timeStamp: serverTimestamp(),
       likes: [],
       tweet: text,

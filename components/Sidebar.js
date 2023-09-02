@@ -1,6 +1,7 @@
 import { auth } from "@/firebase";
 import { closeLoginModal, closeSignupModal } from "@/redux/modalSlice";
-import userSlice, { signOutUser } from "@/redux/userSlice";
+import { signOutUser } from "@/redux/userSlice";
+import ppoo from "../Public/assets/profilePictures/pfp1.png"
 import {
   HomeIcon,
   HashtagIcon,
@@ -18,7 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user)
+  let user = useSelector(state => state.user)
+  console.log(user)
+  console.log("User photoURL:", user.photoURL);
 
   async function handleSignOut() {
     await signOut(auth);
@@ -50,7 +53,7 @@ export default function Sidebar() {
         >
           <img
             className="w-10 h-10 rounded-full object-cover"
-            src={user.photoUrl || "/assets/profilePictures/pfp2.png"}
+            src={user.photoURL || ppoo}
           />
           <div className="hidden xl:inline">
             <h1 className="font-bold whitespace-nowrap">{user.name}</h1>

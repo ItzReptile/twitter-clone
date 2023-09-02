@@ -35,7 +35,7 @@ export default function SignUpModal() {
     );
     await updateProfile(auth.currentUser, {
       displayName: name,
-      photoUrl: ` ../../Public/assets/profilePictures/pfp${Math.ceil(
+      photoURL: ` ../../Public/assets/profilePictures/pfp${Math.ceil(
         Math.random() * 6
       )}.png`,
     });
@@ -52,7 +52,7 @@ export default function SignUpModal() {
           name: currentUser.displayName,
           email: currentUser.email,
           uid: currentUser.uid,
-          photoUrl: currentUser.photoUrl,
+          photoURL: currentUser.photoURL,
         })
       );
     });

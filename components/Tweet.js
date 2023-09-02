@@ -13,7 +13,7 @@ export default function Tweet({ data }) {
         name={data?.name}
         // timestamp={data?.timestamp}
         text={data?.tweet}
-        photoUrl={data?.photoUrl}
+        photoURL={data?.photoURL}
       />
       <div className="p-3 ml-16 text-gray-500 flex space-x-14">
         <ChatIcon className="w-5 cursor-pointer hover:text-green-400" />
@@ -25,12 +25,12 @@ export default function Tweet({ data }) {
   );
 }
 
-export function TweetHeader({ username, name, timestamp, text,photoUrl }) {
+export function TweetHeader({ username, name, timestamp, text,photoURL }) {
   return (
     <div className="flex space-x-3 p-3  border-gray-700">
       <img
         className="w-11 h-11 rounded-full object-cover"
-        src={photoUrl}
+        src={photoURL}
       />
       <div>
         <div className="text-gray-500 flex items-center space-x-2 mb-1">
