@@ -1,11 +1,24 @@
+import { auth } from "@/firebase";
 import { openLoginModal, closeLoginModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
+import { isSignInWithEmailLink, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function LoginModal() {
   const isOpen = useSelector((state) => state.modal.loginModalOpen);
   const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  async function handleSignIn() {
+    await signInWithEmailAndPassword(auth, email, password);
+  }
+  async function handleGuestSignIn(){
+    await signInWithEmailAndPassword(auth, "guestunknown1234@gmail.com", "12121212");
+  }
   return (
     <>
       <button
@@ -30,21 +43,26 @@ export default function LoginModal() {
             </h1>
 
             <input
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
               type={"Email"}
             />
             <input
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="mt-8 h-10 rounded-md bg-transparent border border-gray border-gray-700 p-6"
-              type={"Email"}
+              type={"Password"}
             />
 
-            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md mt-8">
-              Sign In 
+            <button
+              onClick={handleSignIn}
+              className="bg-white text-black w-full font-bold text-lg p-2 rounded-md mt-8"
+            >
+              Sign In
             </button>
             <h1 className="text-center mt-4 font-bold text-lg">or</h1>
-            <button className="bg-white text-black w-full font-bold text-lg p-2 mt-4 rounded-md">
+            <button onClick={handleGuestSignIn} className="bg-white text-black w-full font-bold text-lg p-2 mt-4 rounded-md">
               Sign in As guest
             </button>
           </div>

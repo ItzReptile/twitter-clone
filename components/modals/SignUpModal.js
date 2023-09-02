@@ -4,21 +4,29 @@ import reptile from "../../Public/assets/profilePictures/pfp2.png";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userSlice, { setUser, signOutUser } from "@/redux/userSlice";
-
+import { useRouter } from "next/router";
 export default function SignUpModal() {
   const isOpen = useSelector((state) => state.modal.signupModalOpen);
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
+  async function handleGuestSignIn() {
+    await signInWithEmailAndPassword(
+      auth,
+      "guestunknown1234@gmail.com",
+      "12121212"
+    );
+  }
   async function handleSignUp() {
     const userCred = await createUserWithEmailAndPassword(
       auth,
@@ -27,10 +35,12 @@ export default function SignUpModal() {
     );
     await updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: `./assets/profilePictures/pfp${Math.ceil(
+      photoUrl: ` ../../Public/assets/profilePictures/pfp${Math.ceil(
         Math.random() * 6
       )}.png`,
     });
+
+    router.reload();
   }
 
   useEffect(() => {
@@ -69,7 +79,7 @@ export default function SignUpModal() {
         md:h-[600px] border border-gray-700 rounded-lg flex justify-center"
         >
           <div className="w-[90%] mt-8 flex flex-col">
-            <button className="bg-white text-black w-full font-bold text-lg p-2 rounded-md">
+            <button onClick={handleGuestSignIn} className="bg-white text-black w-full font-bold text-lg p-2 rounded-md">
               Sign In as guest
             </button>
             <h1 className="text-center mt-4 font-bold text-lg">or</h1>

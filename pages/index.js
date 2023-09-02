@@ -1,7 +1,4 @@
-import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import Sidebar from "@/components/Sidebar";
 import PostsFeed from "@/components/PostsFeed";
 import Trending from "@/components/Trending";
@@ -11,8 +8,7 @@ import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
-  const username = useSelector(state => state.user.username)
+  const username = useSelector((state) => state.user.username);
 
   return (
     <div>
@@ -24,7 +20,7 @@ export default function Home() {
         <PostsFeed />
         <Trending />
       </div>
-    { !username && <BottomBanner />}
+      {!username && <BottomBanner />}
     </div>
   );
 }
