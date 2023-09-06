@@ -1,7 +1,6 @@
 import { closeSignupModal, openSignupModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
 
-
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -11,7 +10,7 @@ import {
 import { auth } from "@/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userSlice, { setUser, signOutUser } from "@/redux/userSlice";
+import { setUser } from "@/redux/userSlice";
 import { useRouter } from "next/router";
 export default function SignUpModal() {
   const isOpen = useSelector((state) => state.modal.signupModalOpen);
@@ -32,7 +31,7 @@ export default function SignUpModal() {
     );
     await updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: ` ./assets/profilePictures/pfp${Math.ceil(
+      photoURL: ` /./assets/profilePictures/pfp${Math.ceil(
         Math.random() * 6
       )}.png`,
     });
