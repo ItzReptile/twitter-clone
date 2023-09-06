@@ -1,15 +1,21 @@
 import { db } from "@/firebase";
-import { openCommentModal, setCommentTweet } from "@/redux/modalSlice";
+import {
+  openCommentModal,
+  openLoginModal,
+  setCommentTweet,
+} from "@/redux/modalSlice";
 import {
   ChartBarIcon,
   ChatIcon,
   HeartIcon,
+  TrashIcon,
   UploadIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon as FilledHeartIcon } from "@heroicons/react/solid";
 import {
   arrayRemove,
   arrayUnion,
+  deleteDoc,
   doc,
   onSnapshot,
   updateDoc,
@@ -27,6 +33,10 @@ export default function Tweet({ data, id }) {
   const user = useSelector((state) => state.user);
   async function likeComment(e) {
     e.stopPropagation();
+    if (!user.username) {
+      dispatch(openLoginModal());
+      return;
+    }
     if (likes.includes(user.uid)) {
       await updateDoc(doc(db, "posts", id), {
         likes: arrayRemove(user.uid),
@@ -37,11 +47,17 @@ export default function Tweet({ data, id }) {
       });
     }
   }
+
+  async function deleteTweet(e) {
+    e.stopPropagation();
+    await deleteDoc(doc(db,"posts", id))
+  }
+
   useEffect(() => {
     if (!id) return;
     const unsubscribe = onSnapshot(doc(db, "posts", id), (doc) => {
-      setLikes(doc.data().likes);
-      setComments(doc.data().comments);
+      setLikes(doc.data()?.likes);
+      setComments(doc.data()?.comments);
     });
     return unsubscribe;
   }, []);
@@ -56,12 +72,18 @@ export default function Tweet({ data, id }) {
         timeStamp={data?.timeStamp?.toDate()}
         text={data?.tweet}
         photoURL={data?.photoURL}
+        image={data?.image}
       />
 
       <div className="p-3 ml-16 text-gray-500 flex space-x-14">
         <div
+          className="flex justify-center items-center space-x-2"
           onClick={(e) => {
             e.stopPropagation();
+            if (!user.username) {
+              dispatch(openLoginModal());
+              return;
+            }
             dispatch(
               setCommentTweet({
                 id: id,
@@ -69,12 +91,14 @@ export default function Tweet({ data, id }) {
                 photoURL: data?.photoURL,
                 name: data?.name,
                 username: data?.username,
+                
               })
             );
             dispatch(openCommentModal());
           }}
         >
           <ChatIcon className="w-5 cursor-pointer hover:text-green-400" />
+          {comments?.length > 0 && <span>{comments.length}</span>}
         </div>
         <div
           className="flex justify-center items-center space-x-2"
@@ -84,10 +108,17 @@ export default function Tweet({ data, id }) {
             <FilledHeartIcon className="w-5 text-pink-500" />
           ) : (
             <HeartIcon className="w-5 cursor-pointer hover:text-pink-400" />
-          )}{" "}
+          )}
           {likes.length > 0 && <span>{likes.length}</span>}
         </div>
-
+        {user.uid === data?.uid && (
+          <div
+            className="cursor-pointer hover:text-red-600"
+            onClick={deleteTweet}
+          >
+            <TrashIcon className="w-5" />
+          </div>
+        )}
         <ChartBarIcon className="w-5  cursor-not-allowed " />
         <UploadIcon className="w-5 cursor-not-allowed" />
       </div>
@@ -95,7 +126,7 @@ export default function Tweet({ data, id }) {
   );
 }
 
-export function TweetHeader({ username, name, timeStamp, text, photoURL }) {
+export function TweetHeader({ username, name, timeStamp, text, photoURL,image }) {
   console.log("timeStamp:", timeStamp);
   return (
     <div className="flex space-x-3 p-3  border-gray-700">
@@ -108,6 +139,7 @@ export function TweetHeader({ username, name, timeStamp, text, photoURL }) {
           <Moment fromNow>{timeStamp}</Moment>
         </div>
         <span>{text}</span>
+        {image && <img className="object-cover border rounded-md mt-3 max-h-80 border-gray-700" src={image}/>}
       </div>
     </div>
   );

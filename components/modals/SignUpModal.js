@@ -23,8 +23,8 @@ export default function SignUpModal() {
   async function handleGuestSignIn() {
     await signInWithEmailAndPassword(
       auth,
-      "guestunknown1234@gmail.com",
-      "12121212"
+      "GuestLogin101@gmail.com",
+      "123456"
     );
   }
   async function handleSignUp() {
