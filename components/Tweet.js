@@ -1,3 +1,4 @@
+import { db } from "@/firebase";
 import { openCommentModal, setCommentTweet } from "@/redux/modalSlice";
 import {
   ChartBarIcon,
@@ -5,13 +6,45 @@ import {
   HeartIcon,
   UploadIcon,
 } from "@heroicons/react/outline";
+import { HeartIcon as FilledHeartIcon } from "@heroicons/react/solid";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Tweet({ data, id }) {
   const dispatch = useDispatch();
+  const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
   const router = useRouter();
+  const user = useSelector((state) => state.user);
+  async function likeComment(e) {
+    e.stopPropagation();
+    if (likes.includes(user.uid)) {
+      await updateDoc(doc(db, "posts", id), {
+        likes: arrayRemove(user.uid),
+      });
+    } else {
+      await updateDoc(doc(db, "posts", id), {
+        likes: arrayUnion(user.uid),
+      });
+    }
+  }
+  useEffect(() => {
+    if (!id) return;
+    const unsubscribe = onSnapshot(doc(db, "posts", id), (doc) => {
+      setLikes(doc.data().likes);
+      setComments(doc.data().comments);
+    });
+    return unsubscribe;
+  }, []);
   return (
     <div
       onClick={() => router.push("/" + id)}
@@ -43,7 +76,18 @@ export default function Tweet({ data, id }) {
         >
           <ChatIcon className="w-5 cursor-pointer hover:text-green-400" />
         </div>
-        <HeartIcon className="w-5 cursor-pointer hover:text-pink-400" />
+        <div
+          className="flex justify-center items-center space-x-2"
+          onClick={likeComment}
+        >
+          {likes.includes(user.uid) ? (
+            <FilledHeartIcon className="w-5 text-pink-500" />
+          ) : (
+            <HeartIcon className="w-5 cursor-pointer hover:text-pink-400" />
+          )}{" "}
+          {likes.length > 0 && <span>{likes.length}</span>}
+        </div>
+
         <ChartBarIcon className="w-5  cursor-not-allowed " />
         <UploadIcon className="w-5 cursor-not-allowed" />
       </div>
