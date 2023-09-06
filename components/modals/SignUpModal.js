@@ -1,6 +1,7 @@
 import { closeSignupModal, openSignupModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
-import reptile from "../../Public/assets/profilePictures/pfp2.png";
+
+
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -21,11 +22,7 @@ export default function SignUpModal() {
   const [password, setPassword] = useState("");
 
   async function handleGuestSignIn() {
-    await signInWithEmailAndPassword(
-      auth,
-      "GuestLogin101@gmail.com",
-      "123456"
-    );
+    await signInWithEmailAndPassword(auth, "GuestLogin101@gmail.com", "123456");
   }
   async function handleSignUp() {
     const userCred = await createUserWithEmailAndPassword(

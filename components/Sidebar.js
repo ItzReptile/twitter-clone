@@ -1,7 +1,7 @@
 import { auth } from "@/firebase";
 import { closeLoginModal, closeSignupModal } from "@/redux/modalSlice";
 import { signOutUser } from "@/redux/userSlice";
-import ppoo from "../Public/assets/profilePictures/pfp1.png";
+
 import {
   HomeIcon,
   HashtagIcon,
@@ -33,7 +33,7 @@ export default function Sidebar() {
     <div className="h-full hidden sm:flex flex-col fixed xl:ml-24">
       <nav className="h-full relative xl:space-y-1.5 pl-3">
         <div className="xl:justify-start flex justify-center item-center py-3 xl:p-3">
-          <Image src={"/assets/twitter-logo.png"} width={34} height={34} />
+          <Image src={"./assets/twitter-logo.png"} width={34} height={34} />
         </div>
         <SidebarLink Icon={HomeIcon} text={"Home"} />
         <SidebarLink Icon={HashtagIcon} text={"Explore"} />
