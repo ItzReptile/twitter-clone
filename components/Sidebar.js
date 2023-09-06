@@ -53,10 +53,7 @@ export default function Sidebar() {
         >
           <img
             className="w-10 h-10 rounded-full object-cover"
-            src={
-              user.photoURL 
-             
-            }
+            src={user.photoURL}
           />
           <div className="hidden xl:inline">
             <h1 className="font-bold whitespace-nowrap">{user.name}</h1>

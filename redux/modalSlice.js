@@ -39,7 +39,7 @@ const modalSlice = createSlice({
     setCommentTweet: (state, action) => {
       state.commentTweetDetails.username = action.payload.username;
       state.commentTweetDetails.name = action.payload.name;
-      state.commentTweetDetails.id = action.payload.uid;
+      state.commentTweetDetails.id = action.payload.id;
       state.commentTweetDetails.photoURL = action.payload.photoURL;
       state.commentTweetDetails.tweet = action.payload.tweet;
 
