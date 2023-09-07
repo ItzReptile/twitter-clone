@@ -32,9 +32,9 @@ export default function SignUpModal() {
     );
     await updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: `assets/profilePictures/pfp${Math.ceil(
-        Math.random() * 6
-      )}.png`,
+      photoURL: `${
+        window.location.origin
+      }/assets/profilePictures/pfp${Math.ceil(Math.random() * 6)}.png`,
     });
 
     router.reload();
