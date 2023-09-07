@@ -1,7 +1,7 @@
 import { auth } from "@/firebase";
 import { openLoginModal, closeLoginModal } from "@/redux/modalSlice";
 import Modal from "@mui/material/Modal";
-import { isSignInWithEmailLink, signInWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

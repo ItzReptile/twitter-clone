@@ -1,6 +1,6 @@
 
 import { db } from "@/firebase";
-import { closeCommentModal, setCommentTweet } from "@/redux/modalSlice";
+import { closeCommentModal} from "@/redux/modalSlice";
 import {
   CalendarIcon,
   ChartBarIcon,
